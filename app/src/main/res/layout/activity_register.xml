@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/reg_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:padding="5dp"
+        android:text="Register Here"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="20dp">
+
+
+        <EditText
+            android:id="@+id/reg_et_name"
+            style="@style/RegEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your Name" />
+
+        <EditText
+            android:id="@+id/reg_et_address"
+            style="@style/RegEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reg_et_name"
+            android:hint="Enter your Address" />
+
+        <EditText
+            android:id="@+id/reg_et_mobile"
+            style="@style/RegEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reg_et_address"
+            android:hint="Enter your Mobile"
+            android:inputType="phone"
+            android:maxLength="10"/>
+
+        <EditText
+            android:id="@+id/reg_et_email"
+            style="@style/RegEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reg_et_mobile"
+            android:hint="Enter your Email" />
+
+        <EditText
+            android:id="@+id/reg_et_salary"
+            style="@style/RegEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reg_et_email"
+            android:hint="Enter your Salary" />
+
+        <EditText
+            android:id="@+id/reg_et_password"
+            style="@style/RegEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reg_et_salary"
+            android:hint="Enter your password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/reg_et_repassword"
+            style="@style/RegEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reg_et_password"
+            android:hint="Enter your password again"
+            android:inputType="textPassword" />
+
+    </RelativeLayout>
+
+        <Button
+            android:id="@+id/reg_btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:text="Register" />
+
+
+
+</RelativeLayout>
+
