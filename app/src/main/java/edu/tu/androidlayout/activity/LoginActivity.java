@@ -1,4 +1,4 @@
-package edu.tu.androidlayout;
+package edu.tu.androidlayout.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import edu.tu.androidlayout.model.Database;
+import edu.tu.androidlayout.R;
+import edu.tu.androidlayout.model.Student;
 
 public class LoginActivity extends AppCompatActivity {
     String TAG=LifeCycleActivity.class.getName();
@@ -32,13 +36,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(LoginActivity.this,RegisterActivity.class);//I am making an a reference/object from moving one to another activity
-                intent.putExtra("name","Sujita");//passing some data through this object
-                intent.putExtra("age", 32);
-                intent.putExtra("address", "Pashupatinath, Gaushala");
+                /*intent.putExtra("name","Jhonson");//passing some data through this object
+                intent.putExtra("age", 45);
+                intent.putExtra("address", "Stockholm, Sweden");*/
 
-                //startActivity(intent); //Simple call, not expecting anything back from child.
+                startActivity(intent); //Simple call, not expecting anything back from child.
                 //finish();//this entire login activity will remove from stack, bcoz I have no role to play.//finishing this LoginActivity page on pressing back button(call from OS) on RegisterActivity, this wont be there.
-                startActivityForResult(intent,100);//I am making a call to my child and is expecting data from child.
+                //startActivityForResult(intent,100);//I am making a call to my child and is expecting data from child.
             }
         });
 
@@ -53,9 +57,19 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick:  email "+email);
                 Log.d(TAG, "onClick: password "+password);
 
-                Toast.makeText(LoginActivity.this, "Email :"+email+" password "+password, Toast.LENGTH_LONG).show();
+                //Toast.makeText(LoginActivity.this, "Email :"+email+" password "+password, Toast.LENGTH_LONG).show();
 
-
+                Database db = new Database(LoginActivity.this);
+                Student student = db.getValue(email,password);
+                if(student != null){
+                    Toast.makeText(LoginActivity.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(LoginActivity.this, "No data found", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

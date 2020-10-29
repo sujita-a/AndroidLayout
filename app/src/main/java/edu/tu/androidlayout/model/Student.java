@@ -1,4 +1,4 @@
-package edu.tu.androidlayout;
+package edu.tu.androidlayout.model;
 
 public class Student {
 
@@ -8,6 +8,19 @@ public class Student {
     String mobile;
     String salary;
     String password;
+
+    public Student() {
+
+    }
+
+    public Student(String name, String email, String address, String mobile, String salary, String password) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.mobile = mobile;
+        this.salary = salary;
+        this.password = password;
+    }
 
     public String getName() {
         return name;

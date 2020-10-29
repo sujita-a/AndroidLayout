@@ -1,4 +1,4 @@
-package edu.tu.androidlayout;
+package edu.tu.androidlayout.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import edu.tu.androidlayout.model.Database;
+import edu.tu.androidlayout.R;
+import edu.tu.androidlayout.model.Student;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,12 +46,12 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //validation();
-                Intent intent =new Intent();
+                validation();
+                /*Intent intent =new Intent();
                 intent.putExtra("name", "Paul");
                 intent.putExtra("age", 25);
                 setResult(RESULT_OK, intent);
-                finish();
+                finish();*/
 
             }
         });
@@ -109,10 +111,15 @@ public class RegisterActivity extends AppCompatActivity {
             student.setSalary(salary);
             student.setPassword(password);
 
-            Database db =new Database(this);
-            db.addValues(student);
+            Database db =new Database(RegisterActivity.this);
+            int i = db.addValue(student);
+            if (i != -1){
+                showToast("Successfully Registered");
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
 
-            showToast("Successfully Registered");
         }
 
 

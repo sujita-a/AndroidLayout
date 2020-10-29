@@ -1,4 +1,4 @@
-package edu.tu.androidlayout;
+package edu.tu.androidlayout.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import edu.tu.androidlayout.R;
 
 public class LifeCycleActivity extends AppCompatActivity {
 
