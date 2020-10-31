@@ -1,8 +1,6 @@
 package edu.tu.androidlayout.fragment;
 
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,7 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import edu.tu.androidlayout.R;
+import edu.tu.androidlayout.activity.HomeActivity;
 import edu.tu.androidlayout.model.Database;
+import edu.tu.androidlayout.model.Student;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,8 +40,8 @@ public class DeleteFragment extends DialogFragment{
     private String mParam1;
     private String mParam2;
 
-    private EditText etEmail;
-    private Button btnDelete;
+    private EditText etMobile;
+    private Button btnDelete, btnClose;
 
     public DeleteFragment() {
         // Required empty public constructor
@@ -82,28 +82,41 @@ public class DeleteFragment extends DialogFragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+
         View view = inflater.inflate(R.layout.fragment_delete, container, false);
-        etEmail = view.findViewById(R.id.et_delete_email);
+        etMobile = view.findViewById(R.id.et_delete_mobile);
         btnDelete = view.findViewById(R.id.btn_delete);
+        btnClose = view.findViewById(R.id.btn_close);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString().trim();
-                if(TextUtils.isEmpty(email)){
-                    showToast("Email Mandatory");
-                    etEmail.requestFocus();
+                String mobile = etMobile.getText().toString().trim();
+                if(TextUtils.isEmpty(mobile)){
+                    showToast("Mobile Number Mandatory");
+                    etMobile.requestFocus();
                 }
                 else {
                     Database database = new Database(getContext());
-                    boolean result = database.deleteValue(email);
-                    if(result)
+                    Student student = new Student();
+                    student.setMobile(mobile);
+                    int result = database.deleteValue(student);
+                    if(result > 0) {
                         showToast("Deleted Successfully");
+                        dismiss();
+                    }
                     else
-                        showToast("Email does not exist ");
+                        showToast("Mobile No. does not exist ");
 
                 }
             }
         });
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+            setCancelable(false);//This will not allow fragment to close it automatically, If value is true, it gets closed if you click anywhere else on screen, By default, if setCancelable() is not set, its value is true.
         return view;
     }
 
@@ -114,7 +127,7 @@ public class DeleteFragment extends DialogFragment{
         Dialog dialog = new Dialog(getContext()); dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         Window window = dialog.getWindow();
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT); // dialog.setContentView(rootView); return dialog;
-        dialog.setCancelable(true);
+        //dialog.setCancelable(true);
         return dialog;
         //return super.onCreateDialog(savedInstanceState);
     }

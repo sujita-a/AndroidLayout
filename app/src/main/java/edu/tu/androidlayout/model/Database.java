@@ -8,10 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Database extends SQLiteOpenHelper {
 
     String TAG = "Database";
-    public static final int VERSION=1;
+    public static final int VERSION=2;
     public static final String DATABASE="studentdata";
     public static final String TABLE_NAME="student_table";
     public static final String COL_NAME="name";
@@ -31,7 +34,7 @@ public class Database extends SQLiteOpenHelper {
         String tableS="CREATE TABLE "+TABLE_NAME+"( "+COL_NAME+ " VARCHAR(50), "+
                 COL_ADDRESS+" VARCHAR(150), "+
                 COL_EMAIL+" VARCHAR(50), "+
-                COL_MOBILE+" VARCHAR(15), "+
+                COL_MOBILE+" VARCHAR(15) PRIMARY KEY, "+
                 COL_SALARY+" VARCHAR(10), "+
                 COL_PASSWORD+" VARCHAR(30) "+")";
         sqLiteDatabase.execSQL(tableS);
@@ -42,7 +45,7 @@ public class Database extends SQLiteOpenHelper {
     //so that we should not reinstall the appilication to make a changes available.
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldversion, int newversion) {
-        if(newversion>oldversion) {
+        if(newversion > oldversion) {
             sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
             onCreate(sqLiteDatabase);
         }
@@ -76,8 +79,14 @@ public class Database extends SQLiteOpenHelper {
         cv.put(COL_MOBILE,student.getMobile());
         cv.put(COL_SALARY,student.getSalary());
         cv.put(COL_PASSWORD,student.getPassword());
+        int i =-1;//we got some error while trying to insert.
+        if(!(isValueExist(student))){
+            i=(int)db.insert(TABLE_NAME,null,cv);
+        }
+        else{
+            i = -2;//-2 indicates the error due to already existing Mobile Number.
+        }
 
-        int i=(int)db.insert(TABLE_NAME,null,cv);
         Log.d(TAG, "addValue: i " +i);
         db.close();
         return i;
@@ -104,11 +113,31 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
+    public List<Student> getStudentList(){
+        SQLiteDatabase db=getWritableDatabase();
+        List<Student> list = new ArrayList<>();
+        @SuppressLint("Recycle") Cursor c= db.query(TABLE_NAME,new String[]{COL_NAME,COL_EMAIL,COL_MOBILE,COL_ADDRESS,COL_SALARY},
+                COL_PASSWORD+" IS NULL ", null,null,null,null,null);
+        Log.d(TAG, "getStudentList: count " +c.getCount() );
+        if (c.moveToFirst()){
+            do{
+                Student student=new Student();
+                student.setName(c.getString(0));
+                student.setEmail(c.getString(1));
+                student.setMobile(c.getString(2));
+                student.setAddress(c.getString(3));
+                student.setSalary(c.getString(4));
+                list.add(student);
+            }while (c.moveToNext());
+        }
+        return list;
+    }
+
     private boolean isValueExist(Student student){
         SQLiteDatabase db=getWritableDatabase();
 
         @SuppressLint("Recycle") Cursor c= db.query(TABLE_NAME,new String[]{COL_NAME,COL_EMAIL,COL_MOBILE,COL_ADDRESS,COL_SALARY,COL_PASSWORD},
-                COL_EMAIL+" = ? and "+COL_MOBILE+" =? ",new String[]{student.getEmail(),student.getMobile()},null,null,null,null);
+                COL_MOBILE+" =? ",new String[]{student.getMobile()},null,null,null,null);
         Log.d(TAG, "getValue: count " +c.getCount() );
         if (c.moveToFirst()){
             return true;
@@ -122,7 +151,12 @@ public class Database extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean deleteValue(String email){
-        return true;
+    public int  deleteValue(Student student){
+        SQLiteDatabase db=getWritableDatabase();
+        int i = -1;
+        if(isValueExist(student)){
+            i = db.delete(TABLE_NAME, COL_MOBILE + " =? AND " +COL_PASSWORD + " IS NULL ", new String[]{student.getMobile()} );
+        }
+        return i;
     }
 }

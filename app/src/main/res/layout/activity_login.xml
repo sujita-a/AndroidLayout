@@ -50,7 +50,7 @@
         android:id="@+id/login_tv_signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign in Here"
+        android:text="Sign Up Here"
         android:layout_marginTop="10dp"
         android:textSize="30dp"/>
 </LinearLayout>

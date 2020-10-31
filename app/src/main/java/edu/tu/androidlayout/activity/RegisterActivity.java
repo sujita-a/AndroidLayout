@@ -27,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().setTitle("Sign Up");
         final String name = getIntent().getStringExtra("name");//getting the value from another activity i.e. LoginActivity with a key "name".
         Log.d(TAG, "onCreate: " + name);//displaying it through Log
         int age =getIntent().getIntExtra("age",0);
@@ -113,7 +114,14 @@ public class RegisterActivity extends AppCompatActivity {
 
             Database db =new Database(RegisterActivity.this);
             int i = db.addValue(student);
-            if (i != -1){
+            if (i == -1){
+                showToast("Error Occured");
+
+            }
+            else if(i == -2){
+                showToast("Mobile Number already exists ");
+            }
+            else{
                 showToast("Successfully Registered");
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
@@ -121,8 +129,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
         }
-
-
 
     }
 

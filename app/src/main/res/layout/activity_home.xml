@@ -7,29 +7,55 @@
     android:orientation="vertical"
     tools:context=".activity.HomeActivity">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Student"
-        android:id="@+id/btn_addstudent" />
+        android:padding="2dp"
+        android:layout_margin="5dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Student"
+            android:layout_weight="1"
+            android:id="@+id/btn_addstudent" />
 
-    <Button
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Student"
+            android:layout_weight="1"
+            android:id="@+id/btn_updatestudent" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update Student"
-        android:id="@+id/btn_updatestudent" />
+        android:padding="2dp"
+        android:layout_margin="5dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Display Details"
+            android:layout_weight="1"
+            android:id="@+id/btn_displaydetails" />
 
-    <Button
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete Student"
+            android:layout_weight="1"
+            android:id="@+id/btn_deletestudentrecord" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Display Details"
-        android:id="@+id/btn_displaydetails" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete Student Record"
-        android:id="@+id/btn_deletestudentrecord" />
-
+        android:id="@+id/fragment_layout"
+        android:orientation="vertical"
+        />
 
 </LinearLayout>
