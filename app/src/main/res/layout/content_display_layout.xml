@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/RecyclerViewStyle"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:id="@+id/tv_name"
+            android:text="Name"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            style="@style/RecyclerViewStyle"
+            android:layout_width="0dp"
+            android:id="@+id/tv_salary"
+            android:text="Salary"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            style="@style/RecyclerViewStyle"
+            android:layout_width="0dp"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawablePadding="10dp"
+            android:id="@+id/tv_phone"
+            android:text="Phone"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+            style="@style/RecyclerViewStyle"
+            android:layout_width="0dp"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="10dp"
+            android:id="@+id/tv_email"
+            android:text="Email"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/RecyclerViewStyle"
+        android:layout_width="match_parent"
+        android:drawableStart="@drawable/ic_address"
+        android:drawablePadding="10dp"
+        android:id="@+id/tv_address"
+        android:text="Address"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+
+</LinearLayout>
